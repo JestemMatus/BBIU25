@@ -15,6 +15,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> CreateUser(@RequestBody UserDTO user){
+
         return userService.createUser(user);
     }
 
@@ -41,6 +42,18 @@ public class UserController {
             @RequestParam(defaultValue = "asc") String sortDir
     ) {
         return userService.getAll(page, size, sortBy, sortDir);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> SearchUsers(
+            @RequestParam(defaultValue = "0")   int    page,
+            @RequestParam(defaultValue = "10")  int    size,
+            @RequestParam(defaultValue = "id")  String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            @RequestParam String textValue
+    )
+    {
+        return userService.searchUsers(page,size,sortBy,sortDir,textValue);
     }
 
 
